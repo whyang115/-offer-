@@ -27,7 +27,7 @@ function dichotomy(
   if (arr[mid] < target)
     return dichotomy(arr.slice(mid, len), target, isReturnValue);
 
-  // 若条件均不满足，最后返回false
+  // 若需要则返回flase,否则没有返回值
   if (isNotMatchReturn) return false;
 }
 

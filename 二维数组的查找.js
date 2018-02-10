@@ -1,30 +1,34 @@
-function dichotomy(arr, target) {
-  let len = arr.length;
-  let ind = Math.floor(len / 2);
-  if (len === 1 && arr[ind] !== target) return "can't find";
-  if (arr[ind] === target) {
-    return true;
-  }
-  if (arr[ind] < target) {
-    return dichotomy(arr.slice(ind), target);
-  }
-  if (arr[ind] > target) {
-    return dichotomy(arr.slice(0, ind), target);
-  }
-}
-
-console.log(dichotomy([1, 2, 3], 3));
-const assert = require("assert");
+var dichotomy = require("./dichotomy");
+// method1
+/**
+ * 循环最外层数组,若数组中的第一项小于target 且 最后一项大于target即对此数组进行二分法求值
+ * @param {*} target
+ * @param {*} arr
+ */
 function find(target, arr) {
   for (var i = 0; i < arr.length; i++) {
-    var len = arr[i].length;
-    if (arr[i][0] <= target && arr[i][len - 1] >= target)
-      for (var j = 0; j < arr[i].length; j++) {
-        if (arr[i][j] === target) return true;
-      }
+    let len = arr[i].length;
+    if (arr[i][0] <= target && arr[i][len - 1] >= target) {
+      return dichotomy(arr[i], target);
+    }
   }
   return false;
 }
 
-var arr = [[1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6]];
-assert(find(4, arr), "not find item");
+// method2
+/**
+ * 由题目得 先查看arr[arr.length - 1][0]处的元素,若大于target向上寻找,若小于target向右寻找
+ * @param {*} target
+ * @param {*} arr
+ */
+function find(target, arr) {
+  let len = arr.length - 1;
+  if (len < 0) return false;
+  let start = arr[len][0];
+  if (start === target) return true;
+  if (start < target) {
+    return dichotomy(arr[len], target, true);
+  } else {
+    return find(target, arr.slice(0, len));
+  }
+}

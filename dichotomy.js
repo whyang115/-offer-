@@ -17,7 +17,7 @@ function dichotomy(
   //边界情况处理
   if (len < 0) return false;
   if (arr[0] === target) return isReturnValue ? arr[0] : true;
-  if (arr[len] === target) return isReturnValue ? arr[len] : arr[len];
+  if (arr[len] === target) return isReturnValue ? arr[len] : true;
 
   // 以中间元素为界限,递归寻找目标元素
   let mid = Math.floor(arr.length / 2);
